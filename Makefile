@@ -1,19 +1,19 @@
-mandocdir = mandoc
-testdir   = test
+docdir  = doc
+testdir = test
 
 .PHONEY: mandoc test
 
-all: mandoc
+all: distclean doc
 
 clean:
-	@$(MAKE) -C $(mandocdir) clean
+	@$(MAKE) -C $(docdir) clean
 	@$(MAKE) -C $(testdir) clean
 
 distclean:
 	@$(MAKE) -C $(testdir) clean
 
-mandoc:
-	@$(MAKE) -C $(mandocdir)
+doc:
+	@$(MAKE) -C $(docdir)
 
 test:
 	@$(MAKE) -C $(testdir)

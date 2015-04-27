@@ -28,12 +28,12 @@ END_TEST
 
 // ------------------------------------------------------------
 
-Suite *rfc1123_timestamp_suite(void)
+Suite *rfc1123_gmt_timestamp_suite(void)
 {
     Suite *s;
     TCase *tc_core;
 
-    s = suite_create("rfc1123_timestamp");
+    s = suite_create("rfc1123_gmt_timestamp");
     tc_core = tcase_create("Core");
 
     tcase_add_test(tc_core, test_rfc1123_gmt_timestamp);
@@ -50,7 +50,7 @@ int main(void)
     Suite *s;
     SRunner *sr;
 
-    s = rfc1123_timestamp_suite();
+    s = rfc1123_gmt_timestamp_suite();
     sr = srunner_create(s);
 
     srunner_run_all(sr, CK_NORMAL);
