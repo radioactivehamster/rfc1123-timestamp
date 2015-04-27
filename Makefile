@@ -1,9 +1,12 @@
 docdir  = doc
 testdir = test
 
-.PHONEY: mandoc test
+.PHONEY: doc
 
 all: distclean doc
+
+check:
+	@$(MAKE) -C $(testdir)
 
 clean:
 	@$(MAKE) -C $(docdir) clean
@@ -15,5 +18,3 @@ distclean:
 doc:
 	@$(MAKE) -C $(docdir)
 
-test:
-	@$(MAKE) -C $(testdir)
