@@ -8,6 +8,8 @@ all: test
 clean:
 	@rm -rf $(TESTSBINDIR)
 
+distclean: clean
+
 test:
 	@if test ! -d $(TESTSBINDIR); then mkdir $(TESTSBINDIR); fi
 	@$(CC) $(CFLAGS) -o "$(TESTSBINDIR)/rfc1123_gmt_timestamp" \
