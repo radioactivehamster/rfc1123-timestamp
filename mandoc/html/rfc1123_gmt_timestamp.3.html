@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<style>
+table.head, table.foot { width: 100%; }
+td.head-rtitle, td.foot-os { text-align: right; }
+td.head-vol { text-align: center; }
+table.foot td { width: 50%; }
+table.head td { width: 33%; }
+div.spacer { margin: 1em 0; }
+</style>
+<title>
+RFC1123_GMT_TIMESTAMP(3) (prm)</title>
+</head>
+<body>
+<div class="mandoc">
+<div class="section">
+<h1 id="x4e414d45">NAME</h1> <b class="name">rfc1123_gmt_timestamp</b> &#8212; <span class="desc">creates an RFC 1123 GMT formatted timestamp</span></div>
+<div class="section">
+<h1 id="x53594e4f50534953">SYNOPSIS</h1> <b class="includes">#include &lt;<a class="link-includes">rfc1123_gmt_timestamp.h</a>&gt;</b><div class="spacer">
+</div>
+<br/>
+<span class="type">enum</span> <b class="var">RFC1123_GMT_LEN</b>, <b class="var">RFC1123_GMT_SIZE</b>;<div class="spacer">
+</div>
+<br/>
+<i class="ftype">static inline int</i><br/>
+<b class="fname">rfc1123_gmt_timestamp</b>(<i class="farg">char *restrict dest</i>, <i class="farg">const time_t *restrict timer</i>);</div>
+<div class="section">
+<h1 id="x4445534352495054494f4e">DESCRIPTION</h1> The <b class="name">rfc1123_gmt_timestamp</b>() function takes a pointer to <i class="farg">timer</i> and formats it as a string via &#8220;%a, %d %b %Y %T GMT&#8221; which is then stored in the <i class="farg">dest</i> buffer.</div>
+<div class="section">
+<h1 id="x52455455524e2056414c554553">RETURN VALUES</h1> Upon successful completion, the value of <b class="var">RFC1123_GMT_LEN</b> is returned; otherwise the value 0 is returned to indicate the error.</div>
+<div class="section">
+<h1 id="x4558414d504c4553">EXAMPLES</h1> The following code gets the current Unix time and creates a RFC 1123 GMT formatted timestamp string.<pre style="margin-left: 5.00ex;" class="lit display">
+ 
+#include &lt;stdio.h&gt; 
+#include &lt;stdlib.h&gt; 
+#include &lt;time.h&gt; 
+ 
+#include &quot;rfc1123_gmt_timestamp.h&quot; 
+ 
+int main(void) 
+{ 
+    char ts[RFC1123_GMT_SIZE] = {0}; 
+    int tslen; 
+    time_t t = time(NULL); 
+ 
+    if (t == (time_t)(-1)) { 
+        /** Error handling would go here... */ 
+        exit(EXIT_FAILURE); 
+    } 
+ 
+    tslen = rfc1123_gmt_timestamp(ts, &amp;t); 
+ 
+    if (tslen != RFC1123_GMT_LEN) { 
+        /** Error handling would go here... */ 
+        exit(EXIT_FAILURE); 
+    } 
+ 
+    printf(&quot;%.*s\n&quot;, RFC1123_GMT_LEN, ts); 
+}</pre>
+</div>
+<div class="section">
+<h1 id="x53454520414c534f">SEE ALSO</h1> <span class="ref"><span class="ref-auth">Braden, R., Ed.</span>, <span class="ref-title">Requirements for Internet Hosts - Application and Support</span>, <span class="ref-rep">STD 3, RFC 1123</span>, <a class="link-ref" href="http://www.rfc-editor.org/info/rfc1123">http://www.rfc-editor.org/info/rfc1123</a>, <span class="ref-corp">IETF Host Requirements Working Group</span>, <span class="ref-date">October 1989</span>.</span><div class="spacer">
+</div>
+<span class="ref"><span class="ref-auth">Crocker, D.</span>, <span class="ref-title">Standard for the Format of ARPA Internet Text Messages</span>, <span class="ref-rep">STD 11, RFC 822</span>, <a class="link-ref" href="http://www.rfc-editor.org/info/rfc822">http://www.rfc-editor.org/info/rfc822</a>, <span class="ref-corp">IETF Host Requirements Working Group</span>, <span class="ref-date">August 1982</span>.</span></div>
+<div class="section">
+<h1 id="x5354414e4441524453">STANDARDS</h1> Conforms to IETF RFC-1122 (sec. 5.2.14).</div>
+<div class="section">
+<h1 id="x415554484f5253">AUTHORS</h1> <span class="author">Benner, James</span> &#10216;<a class="link-ext" href="radioactivehamster.com">radioactivehamster.com</a>&#10217;</div>
+</div>
+</body>
+</html>
+

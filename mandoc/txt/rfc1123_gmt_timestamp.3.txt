@@ -1,0 +1,69 @@
+RFC1123_GMT_TIMESTAMP(3)			Library Functions Manual (prm)
+
+NAME
+     rfc1123_gmt_timestamp – creates an RFC 1123 GMT formatted timestamp
+
+SYNOPSIS
+     #include <rfc1123_gmt_timestamp.h>
+
+     enum RFC1123_GMT_LEN, RFC1123_GMT_SIZE;
+
+     static inline int
+     rfc1123_gmt_timestamp(char *restrict dest, const time_t *restrict timer);
+
+DESCRIPTION
+     The rfc1123_gmt_timestamp() function takes a pointer to timer and formats
+     it as a string via “%a, %d %b %Y %T GMT” which is then stored in the dest
+     buffer.
+
+RETURN VALUES
+     Upon successful completion, the value of RFC1123_GMT_LEN is returned;
+     otherwise the value 0 is returned to indicate the error.
+
+EXAMPLES
+     The following code gets the current Unix time and creates a RFC 1123 GMT
+     formatted timestamp string.
+
+	   #include <stdio.h>
+	   #include <stdlib.h>
+	   #include <time.h>
+
+	   #include "rfc1123_gmt_timestamp.h"
+
+	   int main(void)
+	   {
+	       char ts[RFC1123_GMT_SIZE] = {0};
+	       int tslen;
+	       time_t t = time(NULL);
+
+	       if (t == (time_t)(-1)) {
+		   /** Error handling would go here... */
+		   exit(EXIT_FAILURE);
+	       }
+
+	       tslen = rfc1123_gmt_timestamp(ts, &t);
+
+	       if (tslen != RFC1123_GMT_LEN) {
+		   /** Error handling would go here... */
+		   exit(EXIT_FAILURE);
+	       }
+
+	       printf("%.*s\n", RFC1123_GMT_LEN, ts);
+	   }
+
+SEE ALSO
+     Braden, R., Ed., Requirements for Internet Hosts - Application and
+     Support, STD 3, RFC 1123, http://www.rfc-editor.org/info/rfc1123, IETF
+     Host Requirements Working Group, October 1989.
+
+     Crocker, D., Standard for the Format of ARPA Internet Text Messages, STD
+     11, RFC 822, http://www.rfc-editor.org/info/rfc822, IETF Host
+     Requirements Working Group, August 1982.
+
+STANDARDS
+     Conforms to IETF RFC-1122 (sec. 5.2.14).
+
+AUTHORS
+     Benner, James ⟨radioactivehamster.com⟩
+
+rfc1123_gmt_timestamp 0.1.0	April 27, 2015	   rfc1123_gmt_timestamp 0.1.0

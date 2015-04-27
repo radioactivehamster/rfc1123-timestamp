@@ -1,0 +1,87 @@
+.TH "RFC1123_GMT_TIMESTAMP" "3" "April 27, 2015" "rfc1123_gmt_timestamp 0.1.0" "Library Functions Manual"
+.nh
+.if n .ad l
+.SH "NAME"
+\fBrfc1123_gmt_timestamp\fR
+\- creates an RFC 1123 GMT formatted timestamp
+.SH "SYNOPSIS"
+\fB#include <rfc1123_gmt_timestamp.h>\fR
+.PP
+\fIenum\fR
+\fIRFC1123_GMT_LEN\fR,
+\fIRFC1123_GMT_SIZE\fR;
+.PP
+\fIstatic inline int\fR
+.PD 0
+.HP 4n
+\fBrfc1123_gmt_timestamp\fR(\fIchar\ *restrict\ dest\fR,
+\fIconst\ time_t\ *restrict\ timer\fR);
+.PD
+.SH "DESCRIPTION"
+The
+\fBrfc1123_gmt_timestamp\fR()
+function takes a pointer to
+\fItimer\fR
+and formats it as a string via
+\(Lq%a, %d %b %Y %T GMT\(Rq
+which is then stored in the
+\fIdest\fR
+buffer.
+.SH "RETURN VALUES"
+Upon successful completion, the value of
+\fIRFC1123_GMT_LEN\fR
+is returned; otherwise the value 0 is returned to indicate the error.
+.SH "EXAMPLES"
+The following code gets the current Unix time and creates a RFC 1123 GMT
+formatted timestamp string.
+.nf
+.RS 6n
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#include "rfc1123_gmt_timestamp.h"
+
+int main(void)
+{
+    char ts[RFC1123_GMT_SIZE] = {0};
+    int tslen;
+    time_t t = time(NULL);
+
+    if (t == (time_t)(-1)) {
+        /** Error handling would go here... */
+        exit(EXIT_FAILURE);
+    }
+
+    tslen = rfc1123_gmt_timestamp(ts, &t);
+
+    if (tslen != RFC1123_GMT_LEN) {
+        /** Error handling would go here... */
+        exit(EXIT_FAILURE);
+    }
+
+    printf("%.*s\\n", RFC1123_GMT_LEN, ts);
+}
+.RE
+.fi
+.SH "SEE ALSO"
+.PP
+Braden, R., Ed.,
+\fIRequirements for Internet Hosts - Application and Support\fR,
+STD 3, RFC 1123,
+http://www.rfc-editor.org/info/rfc1123,
+IETF Host Requirements Working Group,
+October 1989.
+.PP
+Crocker, D.,
+\fIStandard for the Format of ARPA Internet Text Messages\fR,
+STD 11, RFC 822,
+http://www.rfc-editor.org/info/rfc822,
+IETF Host Requirements Working Group,
+August 1982.
+.SH "STANDARDS"
+Conforms to IETF RFC-1122 (sec. 5.2.14).
+.SH "AUTHORS"
+Benner, James
+\(la\fBradioactivehamster.com\fR\(ra

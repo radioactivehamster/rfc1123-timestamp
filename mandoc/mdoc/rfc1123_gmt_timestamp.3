@@ -1,0 +1,104 @@
+.Dd April 27, 2015
+.Dt RFC1123_GMT_TIMESTAMP 3 PRM
+.Os rfc1123_gmt_timestamp 0.1.0
+.\"
+.Sh NAME
+.\" ====
+.Nm rfc1123_gmt_timestamp
+.Nd creates an RFC 1123 GMT formatted timestamp
+.\"
+.Sh SYNOPSIS
+.\" ========
+.In rfc1123_gmt_timestamp.h
+.Pp
+.Vt enum
+.Va RFC1123_GMT_LEN ,
+.Va RFC1123_GMT_SIZE ;
+.Pp
+.Ft static inline int
+.Fo rfc1123_gmt_timestamp
+.Fa "char *restrict dest"
+.Fa "const time_t *restrict timer"
+.Fc
+.\"
+.Sh DESCRIPTION
+.\" ===========
+The
+.Nm Ns ()
+function takes a pointer to
+.Fa timer
+and formats it as a string via
+.Dq "%a, %d %b %Y %T GMT"
+which is then stored in the
+.Fa dest
+buffer.
+.\"
+.Sh RETURN VALUES
+.\" =============
+Upon successful completion, the value of
+.Va RFC1123_GMT_LEN
+is returned; otherwise the value 0 is returned to indicate the error.
+.\"
+.Sh EXAMPLES
+.\" ========
+The following code gets the current Unix time and creates a RFC 1123 GMT
+formatted timestamp string.
+.\"
+.Bd -literal -offset indent -compact
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#include "rfc1123_gmt_timestamp.h"
+
+int main(void)
+{
+    char ts[RFC1123_GMT_SIZE] = {0};
+    int tslen;
+    time_t t = time(NULL);
+
+    if (t == (time_t)(-1)) {
+        /** Error handling would go here... */
+        exit(EXIT_FAILURE);
+    }
+
+    tslen = rfc1123_gmt_timestamp(ts, &t);
+
+    if (tslen != RFC1123_GMT_LEN) {
+        /** Error handling would go here... */
+        exit(EXIT_FAILURE);
+    }
+
+    printf("%.*s\\n", RFC1123_GMT_LEN, ts);
+}
+.Ed
+.\"
+.Sh SEE ALSO
+.\" ========
+.Rs
+.%A Braden, R., Ed.
+.%T "Requirements for Internet Hosts - Application and Support"
+.%R STD 3, RFC 1123
+.%Q IETF Host Requirements Working Group
+.%D October 1989
+.%U http://www.rfc-editor.org/info/rfc1123
+.Re
+.\"
+.Rs
+.%A Crocker, D.
+.%T "Standard for the Format of ARPA Internet Text Messages"
+.%R STD 11, RFC 822
+.%Q IETF Host Requirements Working Group
+.%D August 1982
+.%U http://www.rfc-editor.org/info/rfc822
+.Re
+.\"
+.Sh STANDARDS
+.\"=========
+Conforms to IETF RFC-1122 (sec. 5.2.14).
+.\"
+.Sh AUTHORS
+.\" =======
+.An Benner, James
+.Aq Lk radioactivehamster.com
