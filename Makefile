@@ -1,12 +1,19 @@
-mandocpath = mandoc
+mandocdir = mandoc
+testdir   = test
 
-.PHONEY: mandoc
-.SUFFIXES: .m4.mdoc .mdoc
+CFLAGS      = -std=c11 -O2 -pedantic -Wall -Wextra
+TESTSBINDIR = test/bin
+
+.PHONEY: mandoc test
 
 all: mandoc
 
-mandoc:
-	$(MAKE) -C $(mandocpath)
+clean:
+	@$(MAKE) -C $(mandocdir) clean
+	@$(MAKE) -C $(testdir) clean
 
-.m4.mdoc.mdoc:
-	$(MAKE) -C $(mandocpath) $@
+mandoc:
+	@$(MAKE) -C $(mandocdir)
+
+test:
+	@$(MAKE) -C $(testdir)
