@@ -1,8 +1,7 @@
 mandocdir = mandoc
 testdir   = test
 
-CFLAGS      = -std=c11 -O2 -pedantic -Wall -Wextra
-TESTSBINDIR = test/bin
+CFLAGS = -std=c11 -O2 -pedantic -Wall -Wextra
 
 .PHONEY: mandoc test
 
